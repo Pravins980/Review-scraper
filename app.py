@@ -16,13 +16,14 @@ def homePage():
 def index():
     if request.method == 'POST':
         try:
+            print(request.form['content'])
             searchString = request.form['content'].replace(" ","")
-            flipkart_url = "https://www.flipkart.com/search?q=" + searchString
+            flipkart_url = "https://www.flipkart.com/search?q=" + searchString  ##ddd
             uClient = uReq(flipkart_url)
             flipkartPage = uClient.read()
             uClient.close()
             flipkart_html = bs(flipkartPage, "html.parser")
-            bigboxes = flipkart_html.findAll("div", {"class": "_1AtVbE col-12-12"})
+            bigboxes = flipkart_html.findAll("div", {"class": "_1AtVbE col-12-12"})  ##col col-7-12
             del bigboxes[0:3]
             box = bigboxes[0]
             productLink = "https://www.flipkart.com" + box.div.div.div.a['href']
